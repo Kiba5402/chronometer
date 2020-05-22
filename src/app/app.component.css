@@ -1,0 +1,16 @@
+body{
+    margin: 0em;
+}
+
+main{
+    height: 88.7vh;
+}
+
+footer{
+    text-align: center;
+    color: white;
+}
+
+footer p{
+    margin-top: 0.5em;
+}
