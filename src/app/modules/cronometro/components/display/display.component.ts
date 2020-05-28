@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CronoServiceService } from '../../service/crono-service.service'; 
 
 @Component({
   selector: 'app-display',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DisplayComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public cronoServ: CronoServiceService
+  ) {
+
+  }
 
   ngOnInit(): void {
   }

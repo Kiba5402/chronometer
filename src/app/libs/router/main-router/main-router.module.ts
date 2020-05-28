@@ -5,6 +5,10 @@ import { CronometroModule } from '../../../modules/cronometro/cronometro.module'
 
 const routes: Routes = [
   {
+    path: '',
+    loadChildren: '../../../modules/cronometro/cronometro.module#CronometroModule'
+  },
+  {
     path: 'home',
     loadChildren: '../../../modules/cronometro/cronometro.module#CronometroModule'
   }

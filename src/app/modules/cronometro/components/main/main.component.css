@@ -1,3 +1,11 @@
-.content{
-    height: 84vh;
+.content {
+    /* height: 84vh; */
+}
+
+.card-body {
+    height: 70vh;
+}
+
+.card{
+    margin-bottom: 2em;
 }

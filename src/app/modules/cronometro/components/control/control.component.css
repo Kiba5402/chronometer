@@ -1,0 +1,35 @@
+label {
+    color: black;
+    font-size: 0.90em;
+}
+
+.mensajes{
+    color: orange !important;
+}
+
+.form-row{
+    margin-top: 0.1em;
+}
+
+.line{
+    border-top: solid 1px #ccc;
+    margin: 0.5em 0em 0em 0em;
+    padding-top: 1.5em;
+}
+
+table tr th{
+    text-align: center;
+    color: white;
+}
+
+table tr td{
+    text-align: center;
+}
+
+button{
+    color: white;
+}
+
+.float-right{
+    margin-left: 0.5em;
+}

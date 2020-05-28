@@ -1,28 +1,22 @@
-<div class="container-fluid">
-  <header class="row">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark col-12">
-      <a class="navbar-brand" href="#">Time Intervals</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Inicio</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-  <main class="row align-items-center">
-    <div class="col-12">
-      <router-outlet></router-outlet>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Time Intervals</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="home">Home</a>
+        </li>
+      </ul>
     </div>
-  </main>
-  <footer class="bg-dark row">
-    <p class="col-12">
-      &copy; Todos los derechos reservados CCRP 2020
-    </p>
-  </footer>
-</div>
+  </nav>
+</header>
+<main>
+  <router-outlet></router-outlet>
+</main>
+<footer class="bg-dark">
+  &copy; Todos los derechos reservados CCRP 2020
+</footer>

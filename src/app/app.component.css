@@ -1,16 +1,14 @@
-body{
-    margin: 0em;
-}
-
-main{
-    height: 88.7vh;
-}
-
-footer{
+footer {
     text-align: center;
     color: white;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
-footer p{
-    margin-top: 0.5em;
+main {
+    height: 100vh;
+    overflow: auto;
+    padding-top: 2.5em;
+    padding-bottom: 6em;
 }

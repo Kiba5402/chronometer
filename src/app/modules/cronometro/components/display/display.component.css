@@ -1,0 +1,27 @@
+*{
+    color: #000;
+}
+
+.row div{
+    text-align: center;
+}
+
+.title{
+    height: 4em;
+}
+
+.title div{
+    font-size: 2.2em;
+}
+
+.time{
+    height: 22em;
+}
+
+.time div{
+    font-size: 10em;
+}
+
+button{
+    color:white;
+}
