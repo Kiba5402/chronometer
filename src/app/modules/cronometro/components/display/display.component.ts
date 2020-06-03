@@ -125,7 +125,7 @@ export class DisplayComponent implements OnInit {
           this.miliseconds = "0";
           this.pauseList();
           //reproducimos el sonido
-          /* this.soundPlayer(); */
+          this.soundPlayer();
           setTimeout(() => {
             this.restart();
             resolve();

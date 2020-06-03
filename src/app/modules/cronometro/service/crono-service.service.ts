@@ -67,7 +67,6 @@ export class CronoServiceService {
 
   changeListState(){
     this.finishList = !this.finishList;
-    console.log(this.finishList);
   }
 
   clearList(){
