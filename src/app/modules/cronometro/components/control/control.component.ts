@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { CronoServiceService } from '../../service/crono-service.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-control',
@@ -11,6 +12,7 @@ export class ControlComponent implements OnInit {
 
   @ViewChild('mensaje', { static: false }) msj: ElementRef;
   @ViewChild('done', { static: true }) btnDone: ElementRef;
+  @ViewChild('break', { static: true }) slcBreak: ElementRef;
 
   public formGroup: FormGroup;
   public break: boolean;
@@ -19,7 +21,8 @@ export class ControlComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public cronoServ: CronoServiceService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private router : Router
   ) {
     //iniciamos el formulario
     this.formBuilderFn();
@@ -135,6 +138,10 @@ export class ControlComponent implements OnInit {
         this.msj.nativeElement.innerHTML = "--";
       }
     });
+  }
+
+  newRoutine() {
+    window.location.reload();
   }
 
   //gets form 

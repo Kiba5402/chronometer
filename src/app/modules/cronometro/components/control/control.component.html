@@ -28,7 +28,7 @@
     <div class="form-row">
         <div class="form-group col-3">
             <label for="title">Breaks?</label>
-            <select (change)="breaksListen($event)" class="form-control form-control-sm" formControlName="break">
+            <select #break (change)="breaksListen($event)" class="form-control form-control-sm" formControlName="break">
                 <option value="1">Yes</option>
                 <option value="0" selected>No</option>
             </select>
@@ -95,9 +95,10 @@
                             {{_time.time.seconds | addZero}}
                         </td>
                         <td>
-                            <span class="badge badge-secondary">
+                            <span title="En construccion.">En const.</span>
+ <!--                            <span class="badge badge-secondary">
                                 <a href="#">Editar</a>
-                            </span>
+                            </span> -->
                         </td>
                     </tr>
                 </ng-container>
@@ -112,4 +113,7 @@
         </tbody>
     </table>
 </div>
-<button type="button" class="btn btn-sm btn-secondary float-right" (click)="routineCreate()">New</button>
+<button type="button" class="btn btn-sm btn-secondary float-right"
+ (click)="newRoutine()" [disabled]="!cronoServ.getRoutineState">
+ New
+</button>

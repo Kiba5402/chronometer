@@ -19,7 +19,8 @@ export class DisplayComponent implements OnInit {
   public disabledFlag: boolean;
   private awaitT: any;
   private indexRoutine: number;
-  @ViewChild('player') player : ElementRef;
+  @ViewChild('player', { static: true }) player: ElementRef;
+  @ViewChild('title', { static: true }) title: ElementRef;
 
   constructor(
     public cronoServ: CronoServiceService
@@ -35,15 +36,16 @@ export class DisplayComponent implements OnInit {
   }
 
   async runRoutine() {
-    this.cronoServ.routineCreate(10, "prueba", { h: 0, m: 0, s: 5 });
     let lista = this.cronoServ.getList();
     for (let i = this.indexRoutine; i < lista.length; i++) {
       let time = lista[i];
       this.cronoServ.updateTime(time.id, 'active');
-      console.log(lista[i]);
+      //seteamos el titulo
+      this.title.nativeElement.innerHTML = time.title.toUpperCase();
       this.awaitT = await this.runTime(time.time.hours, time.time.minutes, time.time.seconds);
       this.cronoServ.updateTime(time.id, 'inactive');
     }
+    this.cronoServ.changeListState();
   }
 
   pause() {
@@ -89,10 +91,7 @@ export class DisplayComponent implements OnInit {
     let s = Number.parseInt(this.seconds);
     let ms = 0;
 
-    console.log('index routine', this.indexRoutine);
-
     return this.intervalSFn(h, m, s, ht, mt, st);
-
   }
 
   intervalMsFn(ms: number) {
@@ -126,7 +125,7 @@ export class DisplayComponent implements OnInit {
           this.miliseconds = "0";
           this.pauseList();
           //reproducimos el sonido
-          this.soundPlayer();
+          /* this.soundPlayer(); */
           setTimeout(() => {
             this.restart();
             resolve();
@@ -136,7 +135,7 @@ export class DisplayComponent implements OnInit {
     });
   }
 
-  soundPlayer(){
+  soundPlayer() {
     this.player.nativeElement.play();
   }
 

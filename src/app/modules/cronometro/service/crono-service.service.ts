@@ -8,10 +8,12 @@ export class CronoServiceService {
 
   private list: Time[];
   private id: number;
+  private finishList: boolean;
 
   constructor() {
     this.list = [];
     this.id = 0;
+    this.finishList = false;
   }
 
   private insertTime(title: string, hours: number,
@@ -62,5 +64,20 @@ export class CronoServiceService {
       return time
     });
   }
+
+  changeListState(){
+    this.finishList = !this.finishList;
+    console.log(this.finishList);
+  }
+
+  clearList(){
+    this.list = [];
+  }
+
+  get getRoutineState(){
+    return this.finishList;
+  }
+
+
 
 }
