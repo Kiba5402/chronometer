@@ -56,7 +56,7 @@ export class CronoServiceService {
     }
   }
 
-  reiniciaLista() {
+  restartList() {
     this.list = this.list.map(time => {
       time.setStatus = 'waiting';
       return time

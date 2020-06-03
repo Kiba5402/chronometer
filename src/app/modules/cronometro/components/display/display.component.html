@@ -2,18 +2,26 @@
     <div class="col-6">Titulo</div>
 </div>
 <div class="row justify-content-center time">
-    <div class="col-12 col-md-12 col-lg-10">__:__:__:__</div>
+    <div class="col-12 col-md-12 col-lg-10">
+        {{hours | addZero}}:{{minutes | addZero}}:{{seconds | addZero}}:{{miliseconds | addZero}}
+    </div>
 </div>
 <div class="row justify-content-center">
+    <audio #player src="./assets/sound/5.mp3"></audio>
     <div class="col-2">
-        <button class="btn btn-secondary btn-block" disabled>
+        <button class="btn btn-secondary btn-block" (click)="runRoutine()"
+            [disabled]="cronoServ.getList().length == 0 || startFlag">
+            Start
+        </button>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-secondary btn-block" (click)="pause()" [disabled]="!startFlag || disabledFlag">
             Pause
         </button>
     </div>
     <div class="col-2">
-        <button class="btn btn-secondary btn-block" disabled>
-            Reset
+        <button class="btn btn-secondary btn-block" (click)="restartList()" [disabled]="!pauseFlag">
+            Restart
         </button>
     </div>
 </div>
-<div>{{cronoServ.getList() | json}}</div>

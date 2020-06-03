@@ -15,11 +15,13 @@
 }
 
 .time{
-    height: 22em;
+    height: 20em;
+    display: flex;
 }
 
 .time div{
-    font-size: 10em;
+    font-size: 8em;
+    margin: auto;
 }
 
 button{

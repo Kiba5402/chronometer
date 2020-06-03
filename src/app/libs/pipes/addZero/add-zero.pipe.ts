@@ -5,8 +5,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class AddZeroPipe implements PipeTransform {
 
-  transform(value: number): unknown {
-    return (value < 10) ? "0" + value : value;
+  transform(value: any): unknown {
+    if (String(value).trim() == "") {
+      return "00";
+    } else if (Number.parseInt(value) < 10) {
+      return "0" + value;
+    }else{
+      return value;
+    }
   }
 
 }

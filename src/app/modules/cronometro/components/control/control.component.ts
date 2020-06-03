@@ -10,6 +10,7 @@ import { CronoServiceService } from '../../service/crono-service.service';
 export class ControlComponent implements OnInit {
 
   @ViewChild('mensaje', { static: false }) msj: ElementRef;
+  @ViewChild('done', { static: true }) btnDone: ElementRef;
 
   public formGroup: FormGroup;
   public break: boolean;
@@ -24,8 +25,6 @@ export class ControlComponent implements OnInit {
     this.formBuilderFn();
     //iniciamos los descansos como verdadero
     this.break = false;
-    //iniciamos la comprobacion es como falsas
-    this.comp = [false, false, false, false];
   }
 
   ngOnInit(): void {
@@ -38,9 +37,9 @@ export class ControlComponent implements OnInit {
         "title": ["", [Validators.required, Validators.maxLength(30)]],
         "hour": ["", [Validators.max(99)]],
         "minute": ["", [Validators.max(59)]],
-        "second": ["", [Validators.required, Validators.min(1), Validators.max(59)]],
+        "second": ["", [Validators.required, Validators.min(0), Validators.max(59)]],
         "qty": ["", [Validators.required, Validators.min(1), Validators.max(60)]],
-        "break": ["", []],
+        "break": ["0", []],
         "titleB": [{ value: "break", disabled: true }, [Validators.required, , Validators.maxLength(20)]],
         "hourB": [{ value: "", disabled: true }, [Validators.max(99)]],
         "minuteB": [{ value: "", disabled: true }, [Validators.max(59)]],
@@ -64,7 +63,20 @@ export class ControlComponent implements OnInit {
   }
 
   routineCreate() {
-    this.cronoServ.routineCreate(5, 'prueba', { h: 1, m: 2, s: 2 }, 'Descanso', { h: 1, m: 12, s: 9 });
+    this.formGroup.disable();
+    this.btnDone.nativeElement.setAttribute('disabled', true);
+    if (this.getBreak.value == 0) {
+      this.cronoServ.routineCreate(this.getQty.value,
+        this.getTitle.value,
+        { h: this.getHour.value, m: this.getMinute.value, s: this.getSecond.value });
+    } else {
+      this.cronoServ.routineCreate(this.getQty.value,
+        this.getTitle.value,
+        { h: this.getHour.value, m: this.getMinute.value, s: this.getSecond.value },
+        this.getTitleB.value,
+        { h: this.getHourB.value, m: this.getMinuteB.value, s: this.getSecondB.value });
+    }
+
   }
 
   //funcion para comprobar el estado del formulario y sus errores
@@ -97,6 +109,26 @@ export class ControlComponent implements OnInit {
         || (this.getTitleB.hasError('required') && this.getTitleB.dirty)) {
         this.msj.nativeElement.style.visibility = 'visible';
         this.msj.nativeElement.innerHTML = "Los campos titulo y segundos del descanso son requeridos";
+      }
+      // Campos segundos requeridos
+      else if ((this.getSecond.hasError('required') && ((this.getHour.dirty) || (this.getMinute.dirty)))
+        || (this.getSecondB.hasError('required') && ((this.getHourB.dirty) || (this.getMinuteB.dirty)))) {
+        this.msj.nativeElement.style.visibility = 'visible';
+        this.msj.nativeElement.innerHTML = "Los campos de segundo son requeridos";
+      }
+      // Tiempos en 0 (cero) no validos
+      else if (((this.getHour.value == 0 && this.getMinute.value == 0 && this.getSecond.value == 0)
+        && (this.getHour.dirty || this.getMinute.dirty || this.getSecond.dirty))) {
+        this.msj.nativeElement.style.visibility = 'visible';
+        this.msj.nativeElement.innerHTML = "Tiempos en 0 (cero) no validos";
+        this.formGroup.setErrors(Validators.nullValidator);
+      }
+      // Tiempos en 0 (cero) no validos
+      else if (((this.getHourB.value == 0 && this.getMinuteB.value == 0 && this.getSecondB.value == 0)
+        && (this.getHourB.dirty || this.getMinuteB.dirty || this.getSecondB.dirty))) {
+        this.msj.nativeElement.style.visibility = 'visible';
+        this.msj.nativeElement.innerHTML = "Tiempos en 0 (cero) no validos";
+        this.formGroup.setErrors(Validators.nullValidator);
       }
       else {
         this.msj.nativeElement.style.visibility = 'hidden';
@@ -132,5 +164,8 @@ export class ControlComponent implements OnInit {
   }
   get getSecondB() {
     return this.formGroup.get("secondB");
+  }
+  get getBreak() {
+    return this.formGroup.get("break");
   }
 }

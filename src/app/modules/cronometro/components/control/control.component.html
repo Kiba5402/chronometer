@@ -7,17 +7,17 @@
         <div class="form-group col-1">
             <label for="title">Time</label>
             <input type="text" placeholder="HH" class="form-control form-control-sm" id="titleInter"
-                formControlName="hour" appOnlyNumbers appAddZeroInput>
+                formControlName="hour" appOnlyNumbers [appAddZeroInput]="true">
         </div>
         <div class="form-group col-1">
             <label for="title" style="color:#f8f9fa">.</label>
             <input placeholder="MM" type="text" class="form-control form-control-sm" id="titleInter"
-                formControlName="minute" appOnlyNumbers appAddZeroInput>
+                formControlName="minute" appOnlyNumbers [appAddZeroInput]="true">
         </div>
         <div class="form-group col-1">
             <label for="title" style="color:#f8f9fa">.</label>
             <input placeholder="SS" type="text" class="form-control form-control-sm" id="titleInter"
-                formControlName="second" appOnlyNumbers appAddZeroInput>
+                formControlName="second" appOnlyNumbers [appAddZeroInput]="true">
         </div>
         <div class="form-group col-3">
             <label for="title">Qty</label>
@@ -28,7 +28,7 @@
     <div class="form-row">
         <div class="form-group col-3">
             <label for="title">Breaks?</label>
-            <select (change)="breaksListen($event)" class="form-control form-control-sm">
+            <select (change)="breaksListen($event)" class="form-control form-control-sm" formControlName="break">
                 <option value="1">Yes</option>
                 <option value="0" selected>No</option>
             </select>
@@ -41,17 +41,17 @@
         <div class="form-group col-1">
             <label for="title">Time</label>
             <input type="text" placeholder="HH" class="form-control form-control-sm" id="titleInter"
-                formControlName="hourB" appOnlyNumbers appAddZeroInput>
+                formControlName="hourB" appOnlyNumbers [appAddZeroInput]="true">
         </div>
         <div class="form-group col-1">
             <label for="title" style="color:#f8f9fa">.</label>
             <input placeholder="MM" type="text" class="form-control form-control-sm" id="titleInter"
-                formControlName="minuteB" appOnlyNumbers appAddZeroInput>
+                formControlName="minuteB" appOnlyNumbers [appAddZeroInput]="true">
         </div>
         <div class="form-group col-1">
             <label for="title" style="color:#f8f9fa">.</label>
             <input placeholder="SS" type="text" class="form-control form-control-sm" id="titleInter"
-                formControlName="secondB" appOnlyNumbers appAddZeroInput>
+                formControlName="secondB" appOnlyNumbers [appAddZeroInput]="true">
         </div>
         <div class="form-group col-3">
             <label for="title" style="color:#f8f9fa">.</label>
@@ -65,7 +65,7 @@
 <div class="mensajes">
     <span #mensaje style="visibility: hidden;">--</span>
 </div>
-<div class="row line">
+<div class="row line" style="overflow-y: auto;max-height: 23.5em;margin-bottom: 0.8em;">
     <table class="table table-bordered table-sm">
         <thead class="bg-secondary">
             <tr>
@@ -77,22 +77,30 @@
         </thead>
         <tbody>
             <ng-container *ngIf="cronoServ.getList().length > 0 else sinInfo">
-                <tr *ngFor="let _time of cronoServ.getList()">
-                    <td>
-                        {{_time.id + 1}}
-                    </td>
-                    <td>
-                        {{_time.title}}
-                    </td>
-                    <td>
-                        {{_time.time.hours | addZero}}:
-                        {{_time.time.minutes | addZero}}:
-                        {{_time.time.seconds | addZero}}
-                    </td>
-                    <td>
-                        editar
-                    </td>
-                </tr>
+                <ng-container *ngFor="let _time of cronoServ.getList()">
+                    <tr [ngClass]="{
+                        '' : _time.status == -1,
+                        'table-success' : _time.status == 1,
+                        'table-secondary' : _time.status == 0
+                    }">
+                        <td>
+                            {{_time.id + 1}}
+                        </td>
+                        <td>
+                            {{_time.title}}
+                        </td>
+                        <td>
+                            {{_time.time.hours | addZero}}:
+                            {{_time.time.minutes | addZero}}:
+                            {{_time.time.seconds | addZero}}
+                        </td>
+                        <td>
+                            <span class="badge badge-secondary">
+                                <a href="#">Editar</a>
+                            </span>
+                        </td>
+                    </tr>
+                </ng-container>
             </ng-container>
             <ng-template #sinInfo>
                 <tr>
@@ -104,5 +112,4 @@
         </tbody>
     </table>
 </div>
-
-<button type="button" class="btn btn-sm btn-secondary float-right">New</button>
+<button type="button" class="btn btn-sm btn-secondary float-right" (click)="routineCreate()">New</button>
