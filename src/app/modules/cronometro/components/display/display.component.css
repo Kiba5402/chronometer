@@ -1,29 +1,41 @@
-*{
+/* * {
     color: #000;
-}
+} */
 
-.row div{
+.row div {
     text-align: center;
 }
 
-.title{
+.title {
     height: 4em;
 }
 
-.title div{
+.title div {
     font-size: 2.2em;
 }
 
-.time{
+.time {
     height: 20em;
     display: flex;
 }
 
-.time div{
+.time div {
     font-size: 8em;
     margin: auto;
 }
 
-button{
-    color:white;
+button {
+    color: white;
+}
+
+all.h1{
+    color: teal;
+}
+
+/* responsive */
+
+@media(max-width: 1440px) {
+    .load {
+        margin: 0.1em 0em 0em 0.5em;
+    }
 }

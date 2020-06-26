@@ -25,6 +25,7 @@ export class DisplayComponent implements OnInit {
   constructor(
     public cronoServ: CronoServiceService
   ) {
+    console.log(Math.max(12,19));
     this.hours = "0";
     this.minutes = "0";
     this.seconds = "0";
@@ -46,6 +47,7 @@ export class DisplayComponent implements OnInit {
       this.cronoServ.updateTime(time.id, 'inactive');
     }
     this.cronoServ.changeListState();
+
   }
 
   pause() {
